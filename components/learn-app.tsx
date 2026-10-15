@@ -142,7 +142,6 @@ export function LearnApp({ course }: { course: Course }) {
 
   const open = course.stages.find((stage) => stage.id === progress.openStage) ?? course.stages[0];
   const current = course.stages.find((stage) => stageStatus(stage.id, progress, course) === "current");
-  const grokUnlocked = isUnlocked("grok", progress, course);
   const notes = [...progress.notes].sort((a, b) => a.sort - b.sort);
 
   function reset() {
@@ -201,11 +200,9 @@ export function LearnApp({ course }: { course: Course }) {
             })}
           </ol>
           {current ? <p className="bar-line">{current.bar}</p> : null}
-          {grokUnlocked ? null : (
-            <p className="grok-line" data-testid="grok-line">
-              {course.grokLine}
-            </p>
-          )}
+          <p className="grok-line" data-testid="grok-line">
+            {course.grokLine}
+          </p>
           <div className="reset-box">
             {resetArmed ? <p>Click again to clear progress and notes on this browser.</p> : null}
             <button type="button" className="text-button" onClick={() => (resetArmed ? reset() : setResetArmed(true))}>

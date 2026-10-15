@@ -71,6 +71,15 @@ test("verbatim page copy is on the course", () => {
     assert.equal(blob.includes(text), true, text.slice(0, 80));
   }
   assert.equal(lessonById(course, "6.1")?.toolPrompt, PAIR);
+  assert.equal(lessonById(course, "5.3")?.toolPrompt?.includes("2k"), true);
+  assert.equal(lessonById(course, "5.4")?.toolPrompt?.includes("1080p"), true);
+  assert.equal(course.grokLine.includes("Until then, Grok only explains"), false);
+  const products = lessonById(course, "5.1")?.explainNotes[0];
+  assert.equal(products?.status, "ready");
+  if (products?.status === "ready") {
+    assert.equal(products.note.html.includes("50"), true);
+    assert.equal(products.note.html.includes("The X Subscription"), true);
+  }
   assert.equal(lessonById(course, "4.4")?.handoff?.body, STAGE4_CARD);
 });
 

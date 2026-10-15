@@ -145,7 +145,7 @@ export const TOOLS: ToolOption[] = [
     id: "imagine",
     label: "Grok Imagine",
     manual:
-      "Open grok.com for the plan, or grok.com/imagine for a still or a clip. Quality Mode is Image 2.0. You click to generate. Save the prompt next to the result.",
+      "Open grok.com/imagine. For a still, use grok-imagine-image-2.0 and, if the screen offers them, 2k and quality medium. For a new clip from that still, use image-to-video on grok-imagine-video-1.5 and, if the screen offers them, 15 seconds, 1080p, and audio on. You click to generate. Save the file. Usage comes from the shared weekly pool on Ultra. This page does not call Grok.",
   },
   {
     id: "dreamina",
@@ -919,6 +919,83 @@ export function assembleCourse(dir: string): Course {
     ),
   ];
 
+  const lesson53 = blankLesson({
+    id: "5.3",
+    kicker: "Lesson 5.3",
+    title: "A still at the image ceiling",
+    explain:
+      "Ultra is the top individual tier of The X Subscription, the plan that unifies Grok, Cursor, and X. It is $200 a month, or $2,000 a year, and its included usage is 50 times Plus. That pool is weekly and shared across Chat, Imagine, Voice, Bot, and Cursor’s first-party models. It is not a separate Imagine quota, and xAI does not publish how many images it holds. For a new still, the documented ceiling on grok-imagine-image-2.0 is 2k resolution and quality medium. Auto quality serves low on a new image. One API request can return up to 10 images. An edit can use up to 5 source images. Practice this in grok.com/imagine. This page does not call Grok.",
+  });
+  lesson53.toolPrompt = `In grok.com/imagine, make one still. Use grok-imagine-image-2.0. If the screen offers resolution and quality, set 2k and medium.
+One closed wooden crate, about the size of a cardboard moving box, three-quarter view, soft daylight, plain gray background. No text. No people. No extra objects.
+Save the image and save this prompt beside it. Write down the resolution and quality the app actually used.
+The Grok watermark stays. The file is a picture, not a mesh.`;
+  lesson53.promptLabel = "send";
+  lesson53.practiceFinish =
+    "one saved still, the prompt saved beside it, and a note of the resolution and quality the app actually used.";
+  lesson53.practiceNote =
+    "If the screen has no resolution control, use the highest image control it does show and write that down. Do not invent a 2k button.";
+  lesson53.repId = "rep:5.3";
+  pageNotices(lesson53, [
+    "The crate is one object, and nothing you excluded appeared.",
+    "You wrote down the resolution and quality the app used.",
+    "The Grok watermark is still on the file. There is no setting to remove it.",
+    "You saved the file. A hosted image URL is temporary.",
+    "You know this draw comes from the shared weekly pool, not a separate Imagine quota.",
+  ]);
+  lesson53.checkpoints = [
+    checkpoint(
+      "5.3-q",
+      "What is the documented ceiling for a new grok-imagine-image-2.0 still?",
+      "Resolution 2k, and quality medium when you pin it. Auto serves low on a new image and medium on an edit. One request can return up to 10 images. An edit can take up to 5 source images. The generation docs list 1k and 2k. The pricing table also lists 1.5K as a billed size.",
+    ),
+  ];
+  lesson53.handoff = handoff(
+    "handoff-5.3",
+    "Still at the image ceiling",
+    "You may ask Grok to draft the 2k, quality-medium crate still in grok.com/imagine. You click generate. You save the file and the prompt. You check the watermark, the subject, and the resolution the app actually used. Spending past the weekly pool waits for a fresh yes.",
+    530,
+  );
+
+  const lesson54 = blankLesson({
+    id: "5.4",
+    kicker: "Lesson 5.4",
+    title: "A clip at the video ceiling",
+    explain:
+      "For a new clip, grok-imagine-video-1.5 does text-to-video and image-to-video at native 1080p, from 1 to 15 seconds, with audio on by default and lip-synced speech. The default duration is 8 seconds. Image-to-video locks your still as frame one and keeps its aspect ratio. Reference-to-video on that model allows up to 14 images, up to 3 voice references, and pinned first, last, and up to 4 mid frames, and it tops out at 720p. Editing a clip up to 8.7 seconds, or extending it by 2 to 10 seconds, is the older grok-imagine-video model, and an edit’s output is capped at 720p. In the app, a 720p video falls back to 480p after your tier’s 720p cap. xAI does not publish the size of that cap. A video draws more of the shared weekly pool than a chat message.",
+  });
+  lesson54.toolPrompt = `In grok.com/imagine, start from the saved crate still. Use image-to-video on grok-imagine-video-1.5.
+If the screen offers duration, resolution, and audio, set 15 seconds, 1080p, and audio on.
+Slow push-in. The crate stays the same closed wooden crate for the whole shot. Soft daylight, plain gray background. No text. No people. No extra objects.
+Save the clip. Write one sentence that names the duration and resolution of the file, and whether the crate and the camera move held.
+Do not use reference-to-video for this rep. That path tops out at 720p.`;
+  lesson54.promptLabel = "send";
+  lesson54.practiceFinish =
+    "one saved image-to-video clip, plus a sentence that names its duration, its resolution, and whether the crate and the camera move held.";
+  lesson54.practiceNote =
+    "Reference-to-video is a different ceiling: up to 14 images and 720p on grok-imagine-video-1.5. Use it only when you need those references, and say so. If a 720p file comes back at 480p, you have passed the tier cap. The cap’s size is not published.";
+  lesson54.repId = "rep:5.4";
+  pageNotices(lesson54, [
+    "The crate stays the same crate for the whole clip.",
+    "You wrote down the duration and resolution of the file you saved.",
+    "You can say whether the clip has audio.",
+    "The Grok watermark is still there.",
+    "You did not treat a 720p reference clip as the 1080p image-to-video ceiling.",
+  ]);
+  lesson54.checkpoints = [
+    checkpoint(
+      "5.4-q",
+      "How is a 15-second image-to-video different from a reference-to-video on grok-imagine-video-1.5?",
+      "Image-to-video can be native 1080p, 1 to 15 seconds, with the still locked as frame one and audio on by default. Reference-to-video allows up to 14 images and up to 3 voice references, and it tops out at 720p. Editing or extending a clip is grok-imagine-video, not 1.5.",
+    ),
+  ];
+  lesson54.handoff = handoff(
+    "handoff-5.4",
+    "Clip at the video ceiling",
+    "You may ask Grok to draft one 15-second 1080p image-to-video of the saved crate still, with audio on, in grok.com/imagine. You click generate. You save the file and check duration, resolution, audio, identity, and the watermark. A batch, or any spend past the weekly pool, waits for a fresh yes.",
+    540,
+  );
+
   const lesson61 = blankLesson({
     id: "6.1",
     kicker: "Lesson 6.1",
@@ -1019,14 +1096,16 @@ export function assembleCourse(dir: string): Course {
       id: "grok",
       index: 5,
       name: "Creating and adding with Grok",
-      bar: "Write one Grok Imagine creation and one addition, each with a finish line and a notice.",
+      bar: "Write one Imagine creation and one addition, then make one 2k still and one 15-second image-to-video at the documented ceilings.",
       goodEnough:
-        "You can write one Grok Imagine creation, a still or a short clip, and one addition: a variation, an edit, a new still, a prompt package, or a scene idea in words. Each message names a finish line and a notice.",
+        "You can write one Grok Imagine creation and one addition, then practice a 2k quality-medium still and a 15-second image-to-video on grok-imagine-video-1.5. You save the files, and you check resolution, duration, audio, identity, and the watermark.",
       extra: "none",
       nodes: [
         { type: "perishable" },
         lessonNode(lesson51),
         lessonNode(lesson52),
+        lessonNode(lesson53),
+        lessonNode(lesson54),
         { type: "fold", summary: "More from the notes", slots: moreFor(library, "grok") },
       ],
     }),

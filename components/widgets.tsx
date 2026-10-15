@@ -4,21 +4,37 @@ import { useState, type ReactNode } from "react";
 import type { CheckpointView, SavedNote, Slot } from "@/lib/types";
 import { useLearn } from "./learn-context";
 
-export async function writeClipboard(text: string): Promise<void> {
+function copyWithTextarea(text: string): boolean {
   try {
-    await navigator.clipboard.writeText(text);
-    return;
-  } catch {
     const area = document.createElement("textarea");
     area.value = text;
     area.setAttribute("readonly", "");
     area.style.position = "fixed";
-    area.style.left = "-9999px";
+    area.style.top = "0";
+    area.style.left = "0";
+    area.style.opacity = "0";
     document.body.appendChild(area);
+    area.focus();
     area.select();
-    document.execCommand("copy");
+    const ok = document.execCommand("copy");
     document.body.removeChild(area);
+    return ok;
+  } catch {
+    return false;
   }
+}
+
+export async function writeClipboard(text: string): Promise<void> {
+  const legacy = copyWithTextarea(text);
+  const modern = navigator.clipboard?.writeText(text).then(
+    () => true,
+    () => false,
+  );
+  const settled = await Promise.race([
+    modern ?? Promise.resolve(false),
+    new Promise<boolean>((resolve) => window.setTimeout(() => resolve(legacy), 300)),
+  ]);
+  if (!settled && !legacy) throw new Error("copy failed");
 }
 
 export function CopyButton({
@@ -42,9 +58,10 @@ export function CopyButton({
       data-testid={testId}
       disabled={disabled}
       aria-live="polite"
-      onClick={async () => {
+      onClick={() => {
         if (disabled) return;
-        await writeClipboard(text);
+        copyWithTextarea(text);
+        void navigator.clipboard?.writeText(text).catch(() => undefined);
         setCopied(true);
         window.setTimeout(() => setCopied(false), 1800);
       }}

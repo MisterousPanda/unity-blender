@@ -7,7 +7,7 @@ export const WELCOME = [
 ];
 
 export const GROK_LINE =
-  "Grok writes creations and additions once you reach stage 5. Until then, Grok only explains.";
+  "Imagine image and video practice is in grok.com/imagine, on Ultra of The X Subscription. This page does not spend that pool for you.";
 
 export const CHROME = {
   copy: "Copy",
@@ -60,7 +60,7 @@ Unity keeps collision and player rules. Blender keeps the editable crate.`;
 
 export const CREATION = `Goal: One still of a small closed wooden crate I can reuse as reference.
 Tool: Grok Imagine.
-Constraints: One crate, about the size of a cardboard moving box, three-quarter view, soft daylight, plain gray background. No text. No people. No extra objects.
+Constraints: One crate, about the size of a cardboard moving box, three-quarter view, soft daylight, plain gray background. No text. No people. No extra objects. Use grok-imagine-image-2.0 at 2k and quality medium when the screen offers those controls.
 Done when: I have one still, the crate is fully in frame, and I saved the prompt next to it.
 Notice: The crate is one object. Nothing I excluded appeared. I can say what I would change in one phrase.
 Stop if: The image is a mesh claim, a Unity scene, or a file I cannot open as a picture.
